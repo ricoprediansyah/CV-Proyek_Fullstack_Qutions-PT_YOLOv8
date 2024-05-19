@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,6 +12,7 @@
           padding:0px;
           margin:0px;
           font-family:Helvetica, sans-serif;
+
         }
         header.feature-box.top{
         background-color:black;
@@ -36,6 +37,7 @@
         }
         section.col-sm{
           background-color:black;
+          background-position: center;
           width: 1000px;
           height: 650px;
           border-radius: 35px;
@@ -86,9 +88,191 @@
       </div>
       </form>
     </div>
-
   </div>
     </section>
 
 </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="../static/images/favicon.png" rel="icon">
+    <link href="../static/images/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <title>Upload Media</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 40px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .img {
+            text-align: center;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .col-sm {
+            border: 2px dashed #ccc;
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            padding: 20px;
+            text-align: center;
+            margin: 0 auto;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .col-sm.hidden {
+            display: none;
+        }
+
+        .new {
+            display: flex;
+            justify-content: center;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #537052;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background-color: #606d5f;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                margin: 10px auto;
+                padding: 10px;
+            }
+
+            .back-btn {
+                top: 10px;
+                left: 10px;
+                padding: 8px 16px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .col-sm {
+                max-width: 100%;
+            }
+
+            img {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="http://127.0.0.1:5000/#about" class="back-btn">Kembali</a>
+    <h1>QUTIONS-PT</h1>
+    <p style="text-align: center; font-size: 18px; margin-top: 40px">Upload foto atau video</p>
+    <div class="img">
+        <img src="{{ url_for('video') }}" alt="Upload video" onload="hideColSm()">
+    </div>
+    <section class="col-sm" id="col-sm">
+      <div style="text-align: center;">
+        <img src="..\static\images\2933152.jpg">
+        <p>Upload your file here</p>
+    </div>
+    </section>
+    <section>
+        <div class="new">
+            <form method='POST' enctype="multipart/form-data"
+                  style="align-content: center; text-align: center;display: flex;">
+                {{form.hidden_tag()}}
+                {{form.file(class_="custom-file-input")}}
+
+                <div>
+                    <button type="submit" name="favorite" value="x" class="btnCustom">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+<script>
+    function hideColSm() {
+        var colSm = document.getElementById("col-sm");
+        colSm.classList.add("hidden");
+    }
+</script>
+</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

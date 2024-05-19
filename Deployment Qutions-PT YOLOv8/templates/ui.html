@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -73,6 +73,88 @@
           <img src="{{ url_for('webapp') }}"   alt="Upload video">
 
   </section>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Live Cam</title>
+
+
+    <link href="../static/images/favicon.png" rel="icon">
+    <link href="../static/images/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 40px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        position: relative;
+        text-align: center;
+        }
+
+        h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 28px;
+        }
+
+        .img {
+        margin-bottom: 20px;
+        border-radius: 8px;
+        }
+
+        img{
+          max-width: 100%;
+          height: auto;
+          object-fit: contain;
+        }
+
+        .back-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        padding: 10px 20px;
+        background-color: #537052;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        text-decoration: none;
+       }
+
+       .back-btn:hover {
+        background-color: #606d5f;
+       }
+
+    </style>
+</head>
+<body>
+<div class="container">
+  <a href="http://127.0.0.1:5000/#about" class="back-btn">Kembali</a>
+  <h1>QUTIONS-PT</h1>
+  <p style="text-align: center; font-size: 18px; margin-top: 40px">Output Webcam</p>
+  <div class="img">
+    <img src="{{ url_for('webapp') }}" alt="Upload video">
+  </div>
+</div>
+
+
 
 </body>
 </html>

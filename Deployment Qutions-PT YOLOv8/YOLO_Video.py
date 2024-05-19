@@ -10,7 +10,7 @@ def video_detection(path_x):
     frame_height=int(cap.get(4))
     #out=cv2.VideoWriter('output.avi', cv2.VideoWriter_fourcc('M', 'J', 'P','G'), 10, (frame_width, frame_height))
 
-    model=YOLO("YOLO-Weights/qutions100.pt")
+    model=YOLO("YOLO-Weights/qutions300.pt")
     classNames = ['layak-produksi-berbuah', 'layak-produksi-tidak-berbuah', 'tidak-layak-produksi-berjamur', 'tidak-layak-produksi-kering', 'tidak-layak-produksi-keropos']
     while True:
         success, img = cap.read()
