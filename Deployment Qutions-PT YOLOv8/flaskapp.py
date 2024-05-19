@@ -65,7 +65,7 @@ def camera():
     session.clear()
     return render_template('camera.html')
 @app.route('/fotovideo', methods=['GET','POST'])
-def front():
+def fotovideo():
     # Upload File Form: Create an instance for the Upload File Form
     form = UploadFileForm()
     if form.validate_on_submit():
