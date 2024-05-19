@@ -15,9 +15,9 @@ import os
 # Required to run the YOLOv8 model
 import cv2
 
-# YOLO_Video is the python file which contains the code for our object detection model
+# YOLO is the python file which contains the code for our object detection model
 #Video Detection is the Function which performs Object Detection on Input Video
-from YOLO_Video import video_detection
+from YOLO import video_detection
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'ricoprediansyah'
@@ -59,12 +59,12 @@ def home():
 # Rendering the Webcam Rage
 #Now lets make a Webcam page for the application
 #Use 'app.route()' method, to render the Webcam page at "/webcam"
-@app.route("/webcam", methods=['GET','POST'])
+@app.route("/camera", methods=['GET','POST'])
 
-def webcam():
+def camera():
     session.clear()
-    return render_template('ui.html')
-@app.route('/FrontPage', methods=['GET','POST'])
+    return render_template('camera.html')
+@app.route('/fotovideo', methods=['GET','POST'])
 def front():
     # Upload File Form: Create an instance for the Upload File Form
     form = UploadFileForm()
@@ -76,7 +76,7 @@ def front():
         # Use session storage to save video file path
         session['video_path'] = os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'],
                                              secure_filename(file.filename))
-    return render_template('videoprojectnew.html', form=form)
+    return render_template('fotovideo.html', form=form)
 @app.route('/video')
 def video():
     #return Response(generate_frames(path_x='static/files/bikes.mp4'), mimetype='multipart/x-mixed-replace; boundary=frame')
