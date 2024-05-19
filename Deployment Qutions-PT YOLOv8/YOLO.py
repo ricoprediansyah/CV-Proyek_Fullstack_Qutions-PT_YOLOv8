@@ -4,11 +4,11 @@ import math
 
 # Define class descriptions
 class_descriptions = {
-    'layak-produksi-berbuah': "POHON BERBUAH: ...",
-    'layak-produksi-tidak-berbuah': "POHON TIDAK BERBUAH: ...",
-    'tidak-layak-produksi-berjamur': "POHON BERJAMUR: ...",
-    'tidak-layak-produksi-kering': "POHON KERING: ...",
-    'tidak-layak-produksi-keropos': "POHON CACAT/KEROPOS: ..."
+    'layak-produksi-berbuah': "POHON BERBUAH: Pohon ini sedang berbuah dan layak untuk diproduksi.",
+    'layak-produksi-tidak-berbuah': "POHON TIDAK BERBUAH: Pohon ini sehat namun belum berbuah.",
+    'tidak-layak-produksi-berjamur': "POHON BERJAMUR: Pohon ini terkena jamur dan tidak layak untuk produksi.",
+    'tidak-layak-produksi-kering': "POHON KERING: Pohon ini kering dan tidak layak untuk produksi.",
+    'tidak-layak-produksi-keropos': "POHON CACAT/KEROPOS: Pohon ini keropos dan tidak layak untuk produksi."
 }
 
 
