@@ -1,91 +1,62 @@
-from flask import Flask, render_template, Response,jsonify,request,session
-
-#FlaskForm--> it is required to receive input from the user
-# Whether uploading a video file  to our object detection model
-
+from flask import Flask, render_template, Response, request, session
 from flask_wtf import FlaskForm
-
-
-from wtforms import FileField, SubmitField,StringField,DecimalRangeField,IntegerRangeField
+from wtforms import FileField, SubmitField
 from werkzeug.utils import secure_filename
-from wtforms.validators import InputRequired,NumberRange
+from wtforms.validators import InputRequired
 import os
-
-
-# Required to run the YOLOv8 model
 import cv2
+from YOLO import video_detection, detect_descriptions
 
-# YOLO is the python file which contains the code for our object detection model
-#Video Detection is the Function which performs Object Detection on Input Video
-from YOLO import video_detection
 app = Flask(__name__)
-
 app.config['SECRET_KEY'] = 'ricoprediansyah'
 app.config['UPLOAD_FOLDER'] = 'static/files'
 
-
-#Use FlaskForm to get input video file  from user
 class UploadFileForm(FlaskForm):
-    #We store the uploaded video file path in the FileField in the variable file
-    #We have added validators to make sure the user inputs the video in the valid format  and user does upload the
-    #video when prompted to do so
-    file = FileField("File",validators=[InputRequired()])
+    file = FileField("File", validators=[InputRequired()])
     submit = SubmitField("Run")
 
-
-def generate_frames(path_x = ''):
+def generate_frames(path_x='', descriptions=[]):
     yolo_output = video_detection(path_x)
     for detection_ in yolo_output:
-        ref,buffer=cv2.imencode('.jpg',detection_)
-
-        frame=buffer.tobytes()
+        ref, buffer = cv2.imencode('.jpg', detection_)
+        frame = buffer.tobytes()
         yield (b'--frame\r\n'
-                    b'Content-Type: image/jpeg\r\n\r\n' + frame +b'\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-def generate_frames_web(path_x):
-    yolo_output = video_detection(path_x)
-    for detection_ in yolo_output:
-        ref,buffer=cv2.imencode('.jpg',detection_)
-
-        frame=buffer.tobytes()
-        yield (b'--frame\r\n'
-                    b'Content-Type: image/jpeg\r\n\r\n' + frame +b'\r\n')
-
-@app.route('/', methods=['GET','POST'])
-@app.route('/home', methods=['GET','POST'])
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
 def home():
     session.clear()
     return render_template('indexproject.html')
-# Rendering the Webcam Rage
-#Now lets make a Webcam page for the application
-#Use 'app.route()' method, to render the Webcam page at "/webcam"
-@app.route("/camera", methods=['GET','POST'])
 
+@app.route("/camera", methods=['GET', 'POST'])
 def camera():
     session.clear()
     return render_template('camera.html')
-@app.route('/fotovideo', methods=['GET','POST'])
+
+@app.route('/fotovideo', methods=['GET', 'POST'])
 def fotovideo():
-    # Upload File Form: Create an instance for the Upload File Form
     form = UploadFileForm()
+    description = "Deskripsi tidak tersedia"
     if form.validate_on_submit():
-        # Our uploaded video file path is saved here
         file = form.file.data
         file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'],
-                               secure_filename(file.filename)))  # Then save the file
-        # Use session storage to save video file path
+                               secure_filename(file.filename)))
         session['video_path'] = os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'],
                                              secure_filename(file.filename))
-    return render_template('fotovideo.html', form=form)
+        descriptions = detect_descriptions(session['video_path'])
+        session['descriptions'] = descriptions
+        description = ", ".join(descriptions)
+
+    return render_template('fotovideo.html', form=form, description=description)
+
 @app.route('/video')
 def video():
-    #return Response(generate_frames(path_x='static/files/bikes.mp4'), mimetype='multipart/x-mixed-replace; boundary=frame')
-    return Response(generate_frames(path_x = session.get('video_path', None)),mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(generate_frames(path_x=session.get('video_path', None), descriptions=session.get('descriptions', [])),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# To display the Output Video on Webcam page
 @app.route('/webapp')
 def webapp():
-    #return Response(generate_frames(path_x = session.get('video_path', None),conf_=round(float(session.get('conf_', None))/100,2)),mimetype='multipart/x-mixed-replace; boundary=frame')
     return Response(generate_frames_web(path_x=0), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == "__main__":

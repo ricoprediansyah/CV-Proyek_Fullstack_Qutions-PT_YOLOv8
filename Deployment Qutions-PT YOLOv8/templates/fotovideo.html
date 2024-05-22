@@ -17,13 +17,13 @@
         }
 
         .container {
-        max-width: 800px;
-        margin: 50px auto;
-        padding: 40px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-        position: relative;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
 
         h1 {
@@ -107,6 +107,18 @@
                 max-width: 100%;
             }
         }
+
+        .description-container {
+            border-top: 2px solid #ccc;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .description {
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -139,7 +151,7 @@
             </form>
         </div>
     </section>
-    <section>
+    <section class="description-container">
         <div class="description">
             <p>{{ description }}</p>
         </div>
